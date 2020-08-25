@@ -1,5 +1,5 @@
 import React, { createRef, Component } from 'react'
-import { Map, TileLayer, GeoJSON, LayersControl, Marker, Popup, FeatureGroup, Circle } from 'react-leaflet'
+import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import { LatLngTuple, PathOptions, Layer, LeafletEvent } from 'leaflet'
 import Control from 'react-leaflet-control';
 import * as states from './states';
@@ -28,7 +28,6 @@ export default class Choropleth extends Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.mapRef = createRef();
-
   }
 
   getColor(d: number) {
@@ -83,7 +82,6 @@ export default class Choropleth extends Component<{}, State> {
             fillOpacity: 0.7
           });
         }
-
       },
       mouseout: () => { 
         let l: any = layer;
@@ -97,7 +95,6 @@ export default class Choropleth extends Component<{}, State> {
             fillOpacity: 0.7
           });
           this.setState({ popDensity: 0, stateName: "" })
-
         }
       },
       click: (e: LeafletEvent) => {
@@ -110,7 +107,7 @@ export default class Choropleth extends Component<{}, State> {
   render() {
     const position: LatLngTuple = [this.state.lat, this.state.lng]
     return (
-      <Map ref={this.mapRef} center={position} zoom={this.state.zoom} style={{ width: '100%', height: '100vh' }} onmouseover={(e: any) => { console.log('Hovered over the map!') }}>
+      <Map ref={this.mapRef} center={position} zoom={this.state.zoom} style={{ width: '100%', height: '100vh' }} >
         <TileLayer
           attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
           url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
@@ -127,14 +124,10 @@ export default class Choropleth extends Component<{}, State> {
             {
               grades.map((grade: number, index: number) => {
                 return (
-                  <>
-                    <i key={index} style={{ 'backgroundColor': this.getColor(grade + 1) }}>
-                    </i> 
-                    {grade}{index == grades.length - 1 ? "+" : <>&ndash;{grades[index + 1]}<br /></>
-
-                    }                  
-                  </>
-
+                  <div key={index}>
+                    <i key={index} style={{ 'backgroundColor': this.getColor(grade + 1) }}/>
+                    {grade}{index === grades.length - 1 ? "+" : <>&ndash;{grades[index + 1]}<br /></>}                  
+                  </div>
                 )
               })
             }
