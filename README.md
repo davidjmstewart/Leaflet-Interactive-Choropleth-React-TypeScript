@@ -3,6 +3,8 @@ A React+TypeScript implementation of the interactive [choropleth tutorial from t
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+![.gif demo](https://media0.giphy.com/media/LSojDIjOL8uGJZUQUQ/giphy.gif)
+
 ## Available Scripts
 
 In the project directory, you can run:
